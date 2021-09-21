@@ -82,7 +82,7 @@ const CSTable: React.FunctionComponent<{
     });
   };
 
-  if (!userData.firstName) {
+  if (!userData.firstName || !userData.lastName || !userData.graduationYear) {
     return (
       <InfoPage
         title="No Profile Data!"
