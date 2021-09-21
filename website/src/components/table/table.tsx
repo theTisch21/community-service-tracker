@@ -82,16 +82,6 @@ const CSTable: React.FunctionComponent<{
     });
   };
 
-  if (!userData.firstName || !userData.lastName || !userData.graduationYear) {
-    return (
-      <InfoPage
-        title="No Profile Data!"
-        message="Click here to update your profile data"
-        link="/profile"
-      />
-    );
-  }
-
   if (Object.keys(data.data).length === 0) {
     return (
       <InfoPage
@@ -101,43 +91,52 @@ const CSTable: React.FunctionComponent<{
       />
     );
   }
-
-  return (
-    <>
-      <span className="flex justify-center text-white text-3xl">
-        {`Total Hours : ${totalizeHours(data)} hours`}
-      </span>
-      <div className="container mx-auto px-4 sm:px-8">
-        <div className="py-4">
-          <div className="text-center">
-            <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => {
-                handleExport(data);
-              }}
-            >
-              Export
-            </button>
-          </div>
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-              <table className={"min-w-full leading-normal"}>
-                <thead>
-                  <tr>
-                    <>{generateHeader()}</>
-                    <th className={TableHeaderStyle}>Operations</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <>{generateTableData()}</>
-                </tbody>
-              </table>
+  if (userData.firstName || userData.lastName || userData.graduationYear) {
+    return (
+      <>
+        <span className="flex justify-center text-white text-3xl">
+          {`Total Hours : ${totalizeHours(data)} hours`}
+        </span>
+        <div className="container mx-auto px-4 sm:px-8">
+          <div className="py-4">
+            <div className="text-center">
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                onClick={() => {
+                  handleExport(data);
+                }}
+              >
+                Export
+              </button>
+            </div>
+            <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+              <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                <table className={"min-w-full leading-normal"}>
+                  <thead>
+                    <tr>
+                      <>{generateHeader()}</>
+                      <th className={TableHeaderStyle}>Operations</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <>{generateTableData()}</>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  } else {
+    return (
+      <InfoPage
+        title="No Profile Data!"
+        message="Click here to update your profile data"
+        link="/profile"
+      />
+    );
+  }
 };
 
 export default CSTable;
